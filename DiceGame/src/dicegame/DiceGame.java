@@ -20,6 +20,7 @@ public class DiceGame
         
         RollDice roll = new RollDice();
         roll.rollTheDice();
+        System.out.println("");
     }
     
 }
