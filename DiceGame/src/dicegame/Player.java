@@ -26,9 +26,9 @@ public class Player
         this.players = players;
     }
     
-    public String getPlayers()
+    public String getPlayers(int playerNum)
     {
-          return this.playerName[this.players];
+        return this.playerName[playerNum];
     }
 
 }

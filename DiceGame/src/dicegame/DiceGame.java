@@ -34,6 +34,8 @@ public class DiceGame
         player.playerNames(numPlayers);
         
         System.out.printf("%30s \n", "Start!");
+        
+        System.out.printf("%s\n", player.getPlayers(1));
 
     }
     
