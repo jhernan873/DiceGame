@@ -11,8 +11,8 @@ public class Player
     public void initializePlayer(int numPlayers)
     {
         Scanner input = new Scanner(System.in);
-        Game game = new Game()
-                ;
+        Game game = new Game();
+                
         this.players = numPlayers;
         playerName = new String[players];
         totalScore = new int[players];
@@ -24,25 +24,19 @@ public class Player
             totalScore[x] = 0;           
         }
     }
-        
-    public void setPlayerNum(int players)
-    {
-        this.players = players;
-    }
     
     public String getPlayers(int playerNum)
     {
         return this.playerName[playerNum];
     }
 
-    
-    public void scoreBoard()
+    public void playerTotalScore()
     {
-        System.out.println("Score: ");
+        System.out.printf("Score: \n\n");
         
         for(int x = 0; x < this.players; x++)
         {
-            System.out.printf("%s: %d\n", getPlayers(x), totalScore[x]);
+            System.out.printf("%10s - %d\n\n", getPlayers(x), totalScore[x]);
         }
     }
 

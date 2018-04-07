@@ -28,12 +28,11 @@ public class DiceGame
         
         System.out.print("Choose number of players: ");
         numPlayers = input.nextInt();
-        player.setPlayerNum(numPlayers);
         player.initializePlayer(numPlayers);
         
         System.out.printf("\n%30s \n\n", "Start!");
         
-        player.scoreBoard();
+        player.playerTotalScore();
 
     }
     
