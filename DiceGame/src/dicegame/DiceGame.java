@@ -23,19 +23,17 @@ public class DiceGame
         
         int numPlayers;
         
-        Scanner  input = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         Player player = new Player();
         
         System.out.print("Choose number of players: ");
         numPlayers = input.nextInt();
-        player.setPlayers(numPlayers);
+        player.setPlayerNum(numPlayers);
+        player.initializePlayer(numPlayers);
         
-        System.out.println("");
-        player.playerNames(numPlayers);
+        System.out.printf("\n%30s \n\n", "Start!");
         
-        System.out.printf("%30s \n", "Start!");
-        
-        System.out.printf("%s\n", player.getPlayers(1));
+        player.scoreBoard();
 
     }
     
