@@ -4,24 +4,28 @@ import java.util.Scanner;
 
 public class Player
 {
-    private int players;
-    private String[] playerName; 
+    public int players;
+    public String[] playerName;
+    public int totalScore[];
     
-    
-    public void playerNames(int numPlayers)
+    public void initializePlayer(int numPlayers)
     {
         Scanner input = new Scanner(System.in);
+        Game game = new Game()
+                ;
         this.players = numPlayers;
         playerName = new String[players];
+        totalScore = new int[players];
         
         for (int x = 0; x < numPlayers; x++)
         {
             System.out.printf("Type player%d's name: ", x + 1);
-            this.playerName[x] = input.nextLine();
+            this.playerName[x] = input.nextLine();  
+            totalScore[x] = 0;           
         }
     }
         
-    public void setPlayers(int players)
+    public void setPlayerNum(int players)
     {
         this.players = players;
     }
@@ -30,5 +34,18 @@ public class Player
     {
         return this.playerName[playerNum];
     }
+
+    
+    public void scoreBoard()
+    {
+        System.out.println("Score: ");
+        
+        for(int x = 0; x < this.players; x++)
+        {
+            System.out.printf("%s: %d\n", getPlayers(x), totalScore[x]);
+        }
+    }
+
+
 
 }
