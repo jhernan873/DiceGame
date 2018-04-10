@@ -4,42 +4,50 @@ import java.util.Scanner;
 
 public class Player
 {
-    public int players;
-    public String[] playerName;
-    public int totalScore[];
+    public static int players;
+    public static String[] playerName;
+    public static boolean[] activePlayer;
+    
+    
+    
     
     public void initializePlayer(int numPlayers)
     {
         Scanner input = new Scanner(System.in);
-        Game game = new Game();
                 
-        this.players = numPlayers;
-        playerName = new String[players];
-        totalScore = new int[players];
+        Player.players = numPlayers;
+        Player.playerName = new String[Player.players];
+        Score.totalScore = new int[Player.players];
+        Player.activePlayer = new boolean[Player.players];
         
         for (int x = 0; x < numPlayers; x++)
         {
             System.out.printf("Type player%d's name: ", x + 1);
-            this.playerName[x] = input.nextLine();  
-            totalScore[x] = 0;           
+            Player.playerName[x] = input.nextLine();  
+            Score.totalScore[x] = 0;
+            
+            if(x == 0)
+                Player.activePlayer[x] = true;
+            else
+                Player.activePlayer[x] = false;
         }
     }
     
-    public String getPlayers(int playerNum)
+    public static String getPlayers(int playerNum)
     {
-        return this.playerName[playerNum];
+        return Player.playerName[playerNum];
     }
 
-    public void playerTotalScore()
+   
+
+    public void whosTurn()
     {
-        System.out.printf("Score: \n\n");
         
-        for(int x = 0; x < this.players; x++)
-        {
-            System.out.printf("%10s - %d\n\n", getPlayers(x), totalScore[x]);
-        }
+        
+        
+        
+        
     }
-
 
 
 }

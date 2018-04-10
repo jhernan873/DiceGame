@@ -25,6 +25,7 @@ public class DiceGame
         
         Scanner input = new Scanner(System.in);
         Player player = new Player();
+        Game game = new Game();
         
         System.out.print("Choose number of players: ");
         numPlayers = input.nextInt();
@@ -32,7 +33,11 @@ public class DiceGame
         
         System.out.printf("\n%30s \n\n", "Start!");
         
-        player.playerTotalScore();
+        RollDice2 roll = new RollDice2();
+        
+        roll.createDice();
+        roll.rollTheDice();
+        roll.whichDice();
 
     }
     
