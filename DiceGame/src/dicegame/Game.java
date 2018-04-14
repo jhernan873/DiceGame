@@ -12,8 +12,7 @@ public class Game
 
     public void Intro()
     {
-        
-        
+           
         System.out.printf("Welcome to The Dice Game. Here are the rules: You start with rolling six dice. Every turn you must keep at least one dice. You must have a 1 or a 5 to continue or else you\n"
                 + "r turn is over. 1's are worth 100 points, and 5's are worth 50. If at any point you roll your dice and you don't get any points you 'zoughted' and your turn\n"
                 + " is over. The exceptions to getting points besides in a 1 or a 5 are as follows. If you roll three 1's at once you get 1000 points, three\n"
@@ -26,8 +25,7 @@ public class Game
                 + " pass their score. After the last round the person with the higest score wins. Have fun! \n\n");
                 
         System.out.print("Choose number of players: ");       
-        player.setPlayers(input.nextInt());
-        
+        player.setPlayers(input.nextInt());      
        
         player.initializePlayer(player.getPlayers());
         

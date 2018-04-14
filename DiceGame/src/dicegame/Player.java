@@ -8,13 +8,9 @@ public class Player
     private String[] playerName;
     private boolean[] activePlayer;
     
-    
-    
-    
     public void initializePlayer(int numPlayers)
     {
-        
-        
+
         Scanner input = new Scanner(System.in);
                 
         this.players = numPlayers;
@@ -24,7 +20,7 @@ public class Player
         
         for (int x = 0; x < numPlayers; x++)
         {
-            System.out.printf("Type player%d's name: ", x + 1);
+            System.out.printf(" nType player%d's name: ", x + 1);
             this.playerName[x] = input.nextLine();  
             Score.totalScore[x] = 0;
             
@@ -58,11 +54,6 @@ public class Player
     public void whosTurn()
     {
         
-        
-        
-        
-        
     }
-
 
 }

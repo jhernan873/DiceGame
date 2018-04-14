@@ -120,14 +120,9 @@ public class RollDice
                     keepArray[5] = true;
                 }
             }
-        }
-            
-
-            
+        }    
             }
-        
         }
-    
      }
 
         public void unlockDice()
