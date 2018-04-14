@@ -17,22 +17,25 @@ public class Score
 {
 
     public static int[] totalScore;
-    public static int[] scoreResult;
-    public static int roundScore;
+    private int[] scoreResult;
+    private int roundScore;
+    
+    Player player = new Player();
     
     
-    public static void calculateScoring()
+    public void calculateScoring()
     {
         
         int[] gameEnder = new int[6];
         ArrayList<Integer> straight = new ArrayList<>(
             Arrays.asList(1,2,3,4,5,6));
         scoreResult = new int[6];
+        roundScore = 0;
         
         //loops through playingSet and finds frequency of each value in set
         for(int x = 0;x < 6; x++)
         {
-        scoreResult[x] = Collections.frequency(RollDice.playingSet,x + 1);
+        scoreResult[x] = Collections.frequency(RollDice.scoringSet,x + 1);
         }
 
 
@@ -47,7 +50,10 @@ public class Score
         {
             if(scoreResult[x] >= 3)
             {
-                roundScore = roundScore + (x + 1) * 100 * scoreResult[x];
+                roundScore = roundScore + (100 * (x + 1));
+                
+                if(scoreResult[x] >= 4)
+                    roundScore = roundScore +((x - 3) * (100 * (x + 1)));
             }
         }
         
@@ -82,30 +88,43 @@ public class Score
          
     
     
-    public static void totalScore()
+    public void totalScore()
        {
            System.out.printf("Score: \n\n");
 
-           for(int x = 0; x < Player.players; x++)
+           for(int x = 0; x < player.getPlayers(); x++)
            {
-               System.out.printf("%10s - %d\n\n", Player.getPlayers(x), totalScore[x]);
+               System.out.printf("%10s - %d\n\n", player.getPlayerName(x), totalScore[x]);
            }
        }
 
-    public static void calculateMax()
+    public void displayRoundScore()
     {
+        calculateScoring();
+        
+        System.out.printf("Max Score: %d\n\n", roundScore);   
         
     }
     
     
-    public static void addToScore(int calculatedScore)
+    public void addToScore(int x)
     {
-        if(calculatedScore > 0)
+        if(roundScore > 0)
         {
-            
+            totalScore[x] = roundScore;
         }
     }
+    
+    public int getRoundScore()
+    {
+        return roundScore;
+    }
 
+    public void setRoundScore(int x)
+    {
+        if(x > 0)
+            roundScore = x;
+    }
 
 
     }

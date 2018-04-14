@@ -4,41 +4,56 @@ import java.util.Scanner;
 
 public class Player
 {
-    public static int players;
-    public static String[] playerName;
-    public static boolean[] activePlayer;
+    private int players;
+    private String[] playerName;
+    private boolean[] activePlayer;
     
     
     
     
     public void initializePlayer(int numPlayers)
     {
+        
+        
         Scanner input = new Scanner(System.in);
                 
-        Player.players = numPlayers;
-        Player.playerName = new String[Player.players];
-        Score.totalScore = new int[Player.players];
-        Player.activePlayer = new boolean[Player.players];
+        this.players = numPlayers;
+        this.playerName = new String[this.players];
+        Score.totalScore = new int[this.players];
+        this.activePlayer = new boolean[this.players];
         
         for (int x = 0; x < numPlayers; x++)
         {
             System.out.printf("Type player%d's name: ", x + 1);
-            Player.playerName[x] = input.nextLine();  
+            this.playerName[x] = input.nextLine();  
             Score.totalScore[x] = 0;
             
             if(x == 0)
-                Player.activePlayer[x] = true;
+                this.activePlayer[x] = true;
             else
-                Player.activePlayer[x] = false;
+                this.activePlayer[x] = false;
         }
     }
     
-    public static String getPlayers(int playerNum)
+    public String getPlayerName(int playerNum)
     {
-        return Player.playerName[playerNum];
+        return this.playerName[playerNum];
     }
 
-   
+    public int getPlayers()
+    {
+        return players;
+    }
+    
+    public void setPlayers(int x)
+    {
+        if(x > 0)
+            this.players = x;
+    }
+    public boolean getActivePlayer(int x)
+    {
+        return activePlayer[x];
+    }
 
     public void whosTurn()
     {
