@@ -159,8 +159,13 @@ public class Game
            {
                 roster.get(findActivePlayer()).setTotalScore(roster.get(findActivePlayer()).getTotalScore() + score.getRoundScore());
                 score.setRoundScore(0);
-                getPossibleWinner();
-                dice.setAddToTotal(false);
+                
+                if(getPossibleWinner()){}
+                else
+                {
+                    dice.setAddToTotal(false);
+                }
+                
                 totalScore();
                 nextPlayer();
                 
@@ -271,5 +276,29 @@ public class Game
         }
         
         return possibleWinner;
+    }
+    
+    public void lastRound()
+    {
+    
+        System.out.printf("%15s\n\n","FINAL ROUND!");
+        
+        for(int x = 0;x < numPlayers; x++)
+        {
+            if(roster.get(findActivePlayer()).getTotalScore() <= 10000)
+            {}
+            else
+            {
+                while(!dice.isAddToTotal())
+                    {
+                        rollDice();
+                        chooseDice();
+                    }
+            }
+        }
+        
+        Collections.max(roster, null);
+        
+        System.out.printf("%15s Wins!!!!n\n","d");
     }
 }

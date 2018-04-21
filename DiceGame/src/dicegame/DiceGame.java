@@ -14,7 +14,7 @@ public class DiceGame
         
         game.nextRound();
         
-  
+        game.lastRound();
         
     }
     
