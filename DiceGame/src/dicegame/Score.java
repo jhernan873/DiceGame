@@ -18,6 +18,7 @@ public class Score
         ArrayList<Integer> straight = new ArrayList<>(
                 Arrays.asList(1, 2, 3, 4, 5, 6));
         scoreResult = new int[6];
+        roundScore = 0;
 
         //loops through playingSet and finds frequency of each value in set
         for (int x = 0; x < playingSet.size(); x++)

@@ -160,10 +160,15 @@ public class Game
                 roster.get(findActivePlayer()).setTotalScore(roster.get(findActivePlayer()).getTotalScore() + score.getRoundScore());
                 score.setRoundScore(0);
                 getPossibleWinner();
-                nextPlayer();
                 dice.setAddToTotal(false);
                 totalScore();
-          
+                nextPlayer();
+                
+                for(int x = 0; x < 6; x++)
+                {
+                    dice.setKeepArray(x, false);
+                }
+                
            }
            else
            {
@@ -190,6 +195,8 @@ public class Game
                    }
                    for (int i = 0; i < numberss.length; i++)
                    {
+                       roundNumbers[i] = dice.getPlayingSet(chosenNumber[i] - 1); 
+                       
                        if (chosenNumber[i] == 1)
                        {
                            dice.setKeepArray(0, true);
@@ -247,7 +254,7 @@ public class Game
         for(int x = 0; x < chosenNumber.length; x++)
         {
             chosenNumberList.add(x);
-            chosenNumberList.set(x, roundNumbers[x]);
+            chosenNumberList.set(x, chosenNumber[x]);
         }
         
         return chosenNumberList;
