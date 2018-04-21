@@ -1,15 +1,31 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package dicegame;
 
 import java.util.*;
 
+/**
+ *
+ * @author Jorge
+ */
+public class Game 
+{
 
-public class Game
-        
-{   Player player = new Player();
-    RollDice roll = new RollDice();
-    Scanner input = new Scanner(System.in);
-    Score score = new Score(); 
-
+    private int numPlayers;
+    private ArrayList<Player> roster = new ArrayList<>();
+    private ArrayList<Integer> chosenNumberList = new ArrayList<>();
+    private int[] chosenNumber;
+    private int[] roundNumbers;
+    private  String numbers = null;
+    private boolean possibleWinner = false;
+       
+    Dice dice = new Dice();
+    Score score = new Score();
+    Scanner in = new Scanner(System.in);
+    
     public void Intro()
     {
            
@@ -24,45 +40,229 @@ public class Game
                 + "in one roll then you automatically win the game! Once someone reaches 10,000 points everybody else gets one more turn \nto try and win and"
                 + " pass their score. After the last round the person with the higest score wins. Have fun! \n\n");
                 
-        System.out.print("Choose number of players: ");       
-        player.setPlayers(input.nextInt());      
-       
-        player.initializePlayer(player.getPlayers());
+            System.out.print("Choose number of players: ");       
+            playerSetup(in.nextInt());
+            System.out.println("");
+            
+            totalScore();
         
-        System.out.printf("\n%30s \n\n", "Start!");
-              
-        roll.createDice();
+    }
+        public void playerSetup(int numPlayers)
+    {
+        this.numPlayers = numPlayers;
         
-        score.totalScore();
-        
+        for(int x = 0; x < numPlayers; x++)
+            {   
+                if(x == 0)
+                {
+                    Player player = new Player();
+                    roster.add(x, player);
+                    in.nextLine();
+                    System.out.printf("Type player%d's name: ", x + 1);
+                    roster.get(x).initializePlayer(in.nextLine(), true);
+                    System.out.println("");
+                }
+                else
+                {
+                    Player player = new Player();
+                    roster.add(x, player);
+                    System.out.printf("Type player%d's name: ", x + 1);
+                    roster.get(x).initializePlayer(in.nextLine(), false);
+                    System.out.println("");
+                }
+            }
+   
     }
     
     public void nextRound()
     {
-        
-        Score score = new Score();
-       
-        RollDice roll = new RollDice();
-        
-        roll.rollDice();
-
-        score.displayRoundScore();
-        
-        roll.chooseDice();
-        
-        while(roll.getAddToTotal())
+ 
+        while(!possibleWinner)
         {
-            roll.rollDice();
-
-            score.displayRoundScore();
-        
-            roll.chooseDice();
-        
-            roll.unlockDice();
-        
-            roll.rollDice();
-
-            score.displayRoundScore();
+            for(int x = 0; x < numPlayers; x++) 
+            {
+                if(roster.get(x).isPlayerStatus())
+                {
+                    while(!dice.isAddToTotal())
+                    {
+                        rollDice();
+                        chooseDice();
+                    }
+                }
+            }
         }
+    }  
+    
+    public int findActivePlayer()
+    {
+        int result = 0;
+                
+        for(int r = 0; r < numPlayers; r++)
+        {
+            if(r <= numPlayers)
+            {
+                if(roster.get(r).isPlayerStatus())
+                {
+                    result = r;   
+                }
+            }
+        }
+        
+        return result;
+    
+    }
+    
+    public void totalScore()
+    {
+        System.out.printf("Score: \n\n");
+
+        for (int x = 0; x < numPlayers; x++)
+        {
+            System.out.printf("%10s - %d\n\n", roster.get(x).getPlayerName(), roster.get(x).getTotalScore());
+        }
+    }
+
+    public void displayRoundScore()
+    {
+
+        System.out.printf("Max Score: %d\n\n", score.calculateScoring(dice.getScoringSet()));
+
+    }
+
+    public void rollDice()
+    {       
+        Random rand = new Random();
+       
+        int activePlayer = findActivePlayer();
+        
+        for(int x = 0; x < 6; x++)
+        {
+            if(dice.getKeepArray(x))
+            {
+
+            }
+            else
+            {
+                dice.setPlayingSet(x, rand.nextInt(6) + 1);
+                System.out.printf("%s's Dice - #%d: %d\n\n",roster.get(findActivePlayer()).getPlayerName(), x + 1, dice.getPlayingSet(x));
+            }
+        }
+        
+        displayRoundScore();
+        
+    }
+    
+    public void chooseDice()
+    {
+        
+        if(dice.chooseDice())
+           {
+                roster.get(findActivePlayer()).setTotalScore(roster.get(findActivePlayer()).getTotalScore() + score.getRoundScore());
+                score.setRoundScore(0);
+                getPossibleWinner();
+                nextPlayer();
+                dice.setAddToTotal(false);
+                totalScore();
+          
+           }
+           else
+           {
+                
+                System.out.print("Which dice numbers would you like to keep? ");
+                numbers = in.nextLine();
+
+                
+                String[] numberss = numbers.split(" ");
+                chosenNumber = new int[numberss.length];
+                roundNumbers = new int[numberss.length];
+          
+               if(numbers.equals(""))
+               {
+               }
+               else
+               {
+                   
+                   
+                   for (int i = 0; i < chosenNumber.length; i++)
+                   {
+                       chosenNumber[i] = Integer.parseInt(numberss[i]);
+                       roundNumbers[i] = chosenNumber[i];
+                   }
+                   for (int i = 0; i < numberss.length; i++)
+                   {
+                       if (chosenNumber[i] == 1)
+                       {
+                           dice.setKeepArray(0, true);
+                       }
+                       if (chosenNumber[i] == 2)
+                       {
+                            dice.setKeepArray(1, true);
+                       }
+                       if (chosenNumber[i] == 3)
+                       {
+                           dice.setKeepArray(2, true);
+                       }
+                       if (chosenNumber[i] == 4)
+                       {
+                           dice.setKeepArray(3, true);
+                       }
+                       if (chosenNumber[i] == 5)
+                       {
+                           dice.setKeepArray(4, true);
+                       }
+                       if (chosenNumber[i] == 6)
+                       {
+                           dice.setKeepArray(5, true);
+                       }
+                       
+                    }
+                   
+                   score.setRoundScore(score.calculateScoring(changeChosenNumber(roundNumbers)));
+
+                } 
+               
+
+               
+           }
+       }
+    
+    public void nextPlayer()
+    {
+        int active = findActivePlayer();
+        
+        if(active == numPlayers - 1)
+        {
+            roster.get(active).setPlayerStatus(false);
+            roster.get(0).setPlayerStatus(true);
+        }
+        else
+        {
+            roster.get(active).setPlayerStatus(false);
+            roster.get(active + 1).setPlayerStatus(true);
+        }
+    }
+    
+    public ArrayList<Integer> changeChosenNumber(int[] chosenNumber)
+    {
+        for(int x = 0; x < chosenNumber.length; x++)
+        {
+            chosenNumberList.add(x);
+            chosenNumberList.set(x, roundNumbers[x]);
+        }
+        
+        return chosenNumberList;
+    }
+    
+    public boolean getPossibleWinner()        
+    {
+        for(int x = 0; x < numPlayers; x++)
+        {
+            if(roster.get(x).getTotalScore() >= 10000)
+            {
+                possibleWinner = true;
+            }
+        }
+        
+        return possibleWinner;
     }
 }
