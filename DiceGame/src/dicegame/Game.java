@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dicegame;
 
 import java.util.*;
+import static java.util.Comparator.comparing;
 
 /**
  *
@@ -280,12 +276,14 @@ public class Game
     
     public void lastRound()
     {
-    
+        
+        dice.setAddToTotal(false);
+        
         System.out.printf("%15s\n\n","FINAL ROUND!");
         
         for(int x = 0;x < numPlayers; x++)
         {
-            if(roster.get(findActivePlayer()).getTotalScore() <= 10000)
+            if(roster.get(findActivePlayer()).getTotalScore() >= 10000)
             {}
             else
             {
@@ -297,8 +295,9 @@ public class Game
             }
         }
         
-        Collections.max(roster, null);
-        
-        System.out.printf("%15s Wins!!!!n\n","d");
+        Player maxValue = roster.stream().max(comparing((player) ->player.getTotalScore())).get();
+       
+        System.out.printf("%15s Wins!!!!\n",maxValue.getPlayerName());
     }
+
 }
