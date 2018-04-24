@@ -277,24 +277,6 @@ public class Game
     public void lastRound()
     {
         
-        dice.setAddToTotal(false);
-        
-        System.out.printf("%15s\n\n","FINAL ROUND!");
-        
-        for(int x = 0;x < numPlayers; x++)
-        {
-            if(roster.get(findActivePlayer()).getTotalScore() >= 10000)
-            {}
-            else
-            {
-                while(!dice.isAddToTotal())
-                    {
-                        rollDice();
-                        chooseDice();
-                    }
-            }
-        }
-        
         Player maxValue = roster.stream().max(comparing((player) ->player.getTotalScore())).get();
        
         System.out.printf("%15s Wins!!!!\n",maxValue.getPlayerName());
