@@ -274,12 +274,46 @@ public class Game
         return possibleWinner;
     }
     
+    public int getNumPlayers()
+        {
+            return numPlayers;
+        }  
     public void lastRound()
     {
+        for(int x= 0; x < 21; x++)
+            System.out.printf("!*");
+        
+        System.out.println();
+        System.out.println();
+        
+        System.out.printf("\n\n%15s\n\n", "Final Round!!");
+        
+        System.out.println();
+        System.out.println();
+        
+        for(int x= 0; x < 21; x++)
+            System.out.printf("!*");
+        
+        System.out.println();
+
+        for(int x = 0; x < getNumPlayers(); x++)
+        {
+            if(roster.get(x).getTotalScore() < 10000)
+            {
+               dice.setAddToTotal(false);
+               
+               while(!dice.isAddToTotal())
+                {
+                    rollDice();
+                    chooseDice();
+                }
+            }
+                        
+        }
         
         Player maxValue = roster.stream().max(comparing((player) ->player.getTotalScore())).get();
        
-        System.out.printf("%15s Wins!!!!\n",maxValue.getPlayerName());
+        System.out.printf("%15s Wins!!!!\n\n",maxValue.getPlayerName());
     }
 
 }
