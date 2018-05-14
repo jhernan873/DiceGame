@@ -18,7 +18,7 @@ public class Player
     {
         this.playerName = playerName;
         this.playerStatus = playerStatus;
-        this.totalScore =  9999;
+        this.totalScore =  0;
     }
 
     public String getPlayerName() {

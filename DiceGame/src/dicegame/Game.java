@@ -17,6 +17,7 @@ public class Game
     private int[] roundNumbers;
     private  String numbers = null;
     private boolean possibleWinner = false;
+    private boolean zought = false;
        
     Dice dice = new Dice();
     Score score = new Score();
@@ -82,7 +83,15 @@ public class Game
                     while(!dice.isAddToTotal())
                     {
                         rollDice();
-                        chooseDice();
+                        
+                        if(isZought())
+                        {
+                            setZought(false);
+                        }
+                        else
+                        {
+                            chooseDice();
+                        }
                     }
                 }
             }
@@ -121,8 +130,19 @@ public class Game
     public void displayRoundScore()
     {
 
-        System.out.printf("Max Score: %d\n\n", score.calculateScoring(dice.getScoringSet()));
-
+        int activeP = findActivePlayer();
+        
+        if(score.calculateScoring(dice.getScoringSet()) != 0)
+            {
+                System.out.printf("Max Score: %d\n\n", score.calculateScoring(dice.getScoringSet()));
+            }
+        else
+            {
+                System.out.printf("\n%s\n%s\n\n", "Zought!!!!!", "You lose a turn :(");
+                setZought(true);
+                roster.get(activeP).setPlayerStatus(false);
+                roster.get(activeP + 1).setPlayerStatus(true);
+            }
     }
 
     public void rollDice()
@@ -315,5 +335,15 @@ public class Game
        
         System.out.printf("%15s Wins!!!!\n\n",maxValue.getPlayerName());
     }
+
+    public boolean isZought() {
+        return zought;
+    }
+
+    public void setZought(boolean zought) {
+        this.zought = zought;
+    }
+    
+    
 
 }
